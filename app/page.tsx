@@ -4,11 +4,12 @@ import Contacts from "./components/Contacts";
 import AddContacts from "./components/AddContacts";
 
 const Page = () => {
-  const getContacts = JSON.parse(localStorage.getItem("contactlist"));
+  const [contacts, setContacts] = useState(() => {
+    const storedContacts = localStorage.getItem("contactlist");
+    return storedContacts ? JSON.parse(storedContacts) : [];
+  });
 
-  const [contacts, setContacts] = useState(getContacts ? getContacts : []);
-
-  const addContactData = (contactData) => {
+  const addContactData = (contactData: any) => {
     setContacts([contactData, ...contacts]);
     localStorage.setItem(
       "contactlist",
@@ -28,7 +29,7 @@ const Page = () => {
         <div>
           <AddContacts onContactAdded={addContactData} />
         </div>
-        {contacts.map((contact, index) => (
+        {contacts.map((contact: any, index: number) => (
           <Contacts data={contact} key={index} />
         ))}
         <button

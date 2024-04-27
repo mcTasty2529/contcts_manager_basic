@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddContacts = (props) => {
+const AddContacts = (props: any) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -8,6 +8,10 @@ const AddContacts = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const contactData = { name, phone, address };
+    if (!name || !phone || !address) {
+      alert("Please fill all the fields");
+      return;
+    }
     props.onContactAdded(contactData);
   };
   return (
